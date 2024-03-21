@@ -1,5 +1,8 @@
-import 'dart:math' as math;
+import 'dart:math';
 import 'package:flutter/material.dart';
+
+/// doc-style comments.
+final randomizer = Random();
 
 void main() {
   runApp(const MyApp());
@@ -34,30 +37,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Color? selectedColor;
+  Color color = Colors.pink;
 
-  void _setColor(Color color) {
+  void setColor() {
     setState(() {
-      selectedColor = color;
+      final int a = randomizer.nextInt(255);
+      final int b = randomizer.nextInt(255);
+      final int c = randomizer.nextInt(255);
+      color = Color.fromARGB(255, a, b, c);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final Color color =
-        Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: InkWell(
-        onTap: () {
-          _setColor(color);
-        },
+        onTap: setColor,
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          color: selectedColor,
+          color: color,
           child: const Center(
             child: Text(
               'Hello there',
